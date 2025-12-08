@@ -21,6 +21,20 @@ def home():
     # Renders templates/home.html
     return render_template("home.html")
 
+# This shows example Flask routes that match the navbar links and templates.
+# Add these to your Flask app (app.py) if you haven't already.
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/faq")
+def faq():
+    return render_template("faq.html")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
 
 @app.route("/results")
 def results():
@@ -52,30 +66,64 @@ def results():
     return render_template("results.html", tables=tables)
 
 
+
 @app.route("/testing")
 def testing():
-    cur = mysql.connection.cursor()
+    query = request.args.get("q", "").strip()
 
-    table_names = [
-        "virus",
-        "protein_sequence",
-        "genome_sequence",
-        "enzyme_annotation",
-    ]
+    # Configure which columns to search and which to display per table
+    TABLE_CONFIG = {
+        "virus": {
+            "search":  ["name", "family", "genome_type"],
+            "display": ["name", "family", "genome_type"],
+        },
+        "genome_sequence": {
+            "search":  ["accession", "length", "sequence"],
+            "display": ["accession", "length", "sequence"],
+        },
+        "protein_sequence": {
+            "search":  ["uniprot_id", "protein_name", "sequence"],
+            "display": ["uniprot_id", "protein_name", "sequence"],
+        },
+        "enzyme_annotation": {
+            "search":  ["ec_number", "enzyme_name", "source_db"],
+            "display": ["ec_number", "enzyme_name", "source_db"],
+        },
+    }
 
     tables = []
 
-    for name in table_names:
-        cur.execute(f"SELECT * FROM `{name}`;")
-        rows = cur.fetchall()
-        colnames = [desc[0] for desc in cur.description]
+    if query:
+        like_value = f"%{query}%"
+        cur = mysql.connection.cursor()
 
-        tables.append({
-            "name": name,
-            "columns": colnames,
-            "rows": rows
-        })
+        for table_name, cfg in TABLE_CONFIG.items():
+            search_cols = cfg["search"]
+            display_cols = cfg["display"]
 
-    cur.close()
+            # Build SELECT col1, col2, col3 ...
+            select_clause = ", ".join(f"`{col}`" for col in display_cols)
 
-    return render_template("testing.html", tables=tables)
+            # Build WHERE colA LIKE %s OR colB LIKE %s ...
+            where_clauses = " OR ".join(f"`{col}` LIKE %s" for col in search_cols)
+
+            sql = f"SELECT {select_clause} FROM `{table_name}` WHERE {where_clauses} LIMIT 100"
+            params = [like_value] * len(search_cols)
+
+            cur.execute(sql, params)
+            rows = cur.fetchall()
+
+            if rows:
+                # We already know display column order from display_cols
+                tables.append({
+                    "name": table_name,
+                    "columns": display_cols,
+                    "rows": rows,
+                })
+
+        cur.close()
+
+    return render_template("testing.html", q=query, tables=tables)
+
+
+app.run(debug=True)

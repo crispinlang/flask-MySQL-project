@@ -1,0 +1,236 @@
+/* -----------------------------------------------------
+   GLOBAL SITE-WIDE STYLE (applies to all non-landing pages)
+   This file defines colors, fonts, buttons, layout,
+   tables, cards, headers, and navbar appearance.
+------------------------------------------------------ */
+
+/* Base body styling for all regular pages */
+body {
+    margin: 0;
+    padding-top: 80px; /* space for fixed navbar */
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: #f3f4f6;
+    color: #111827;
+    line-height: 1.6;
+}
+
+/* Centers content and restricts width */
+.container, .page-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 30px;
+}
+
+/* -----------------------------------------------------
+   NAVBAR STYLING
+------------------------------------------------------ */
+.navbar {
+    width: 100%;
+    position: fixed;   /* keeps navbar on top */
+    top: 0;
+    left: 0;
+    background: white;
+    z-index: 1000;
+    padding: 12px 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.navdiv {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #4f46e5;
+}
+
+/* Navbar link list */
+.navdiv ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navdiv ul li {
+    margin-left: 25px;
+}
+
+/* Navbar link buttons */
+.navdiv ul li a {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 10px;
+    transition: 0.25s;
+}
+
+.navdiv ul li a:hover {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+/* -----------------------------------------------------
+   PAGE HEADERS — rounded modern title badges
+------------------------------------------------------ */
+.header-badge {
+    display: inline-block;
+    padding: 12px 24px;
+    background: white;
+    color: #1f2937;
+    border-radius: 14px;
+    font-size: 2rem;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+}
+
+/* -----------------------------------------------------
+   CARD / BOX STYLE — used for FAQ, About, database tables etc.
+------------------------------------------------------ */
+.results-box {
+    background: white;
+    padding: 30px;
+    margin-bottom: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.results-box h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 1.5rem;
+    color: #1f2937;
+}
+
+/* -----------------------------------------------------
+   TABLE STYLING (matches your database output look)
+------------------------------------------------------ */
+.table-wrapper {
+    overflow-x: auto;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 0.95rem;
+}
+
+th, td {
+    border: 1px solid #d1d5db;
+    padding: 12px 10px;
+    text-align: left;
+    word-break: break-word;
+}
+
+th {
+    background: #f9fafb;
+    font-weight: 600;
+    color: #374151;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+tr:nth-child(even) {
+    background: #f3f4f6;
+}
+
+/* -----------------------------------------------------
+   BUTTON STYLE — consistent across all pages
+------------------------------------------------------ */
+/* .button {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #4f46e5;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.25s;
+} */
+.button{    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    background: #4f46e5;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    transition: 0.25s;
+}
+
+
+.button:hover {
+    background: #4338ca;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(158, 158, 158, 0.15);
+}
+
+/* Secondary button (light style) */
+.button-light {
+    background: #eef2ff;
+    color: #ffffff;
+}
+
+.button-light:hover {
+    background: #e0e7ff;
+}
+
+/* -----------------------------------------------------
+   TYPOGRAPHY
+------------------------------------------------------ */
+h1, h2, h3 {
+    color: #1f2937;
+    margin-top: 0;
+}
+
+p {
+    color: #374151;
+    margin-bottom: 20px;
+}
+
+/* Optional monospace for sequence cells */
+.sequence-cell {
+    font-family: Menlo, Consolas, "Courier New", monospace;
+}
+
+/* -----------------------------------------------------
+   UTILITY SPACING CLASSES
+------------------------------------------------------ */
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-40 { margin-bottom: 40px; }
+
+
+/* -----------------------------------------------------
+table collapse utility
+------------------------------------------------------ */
+.sequence-cell {
+    font-family: Menlo, Consolas, "Courier New", monospace;
+}
+
+.seq-toggle {
+    margin-top: 8px;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    border: none;
+    border-radius: 6px;
+    background: #eef2ff;
+    color: #4f46e5;
+    cursor: pointer;
+}
+.seq-toggle:hover {
+    background: #e0e7ff;
+}

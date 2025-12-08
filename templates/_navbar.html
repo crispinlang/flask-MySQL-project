@@ -1,0 +1,18 @@
+<!-- This partial contains only the navbar and is included in base.html.
+     Save this as: templates/_navbar.html -->
+
+<nav class="navbar">
+  <div class="navdiv">
+    <div class="logo">
+      <a href="{{ url_for('home') }}">BioQueryX</a>
+    </div>
+
+    <ul>
+      <li><a href="{{ url_for('home') }}" class="button">Home</a></li>
+      <li><a href="{{ url_for('results') }}" class="button">Results</a></li>
+      <li><a href="{{ url_for('about') }}" class="button">About</a></li>
+      <li><a href="{{ url_for('faq') }}" class="button">FAQ</a></li>
+      <li><a href="{{ url_for('contact') }}" class="button">Contact</a></li>
+    </ul>
+  </div>
+</nav>

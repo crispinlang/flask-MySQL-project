@@ -1,96 +1,33 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    
-    <link rel="icon" type="image/svg+xml"
-          href="{{ url_for('static', filename='logo.jpg') }}">
+<!-- This is the landing/“Home” page that uses the special gradient + glow styling.
+     It extends base.html and adds landing.css only for this page.
+     Save this as: templates/home.html -->
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends "base.html" %}
 
-    <title>Welcome to My Website</title>
+{% block title %}Home - Crispin's Website{% endblock %}
 
-    <style>
-      body {
-        margin: 0;
-        font-family: "Helvetica Neue", Arial, sans-serif;
-        background: linear-gradient(135deg, #4f46e5, #7c3aed);
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        text-align: center;
-        overflow: hidden;
-      }
-      .container {
-        max-width: 700px;
-        padding: 40px;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        animation: fadeIn 1.2s ease-out;
-      }
-      h1 {
-        font-size: 3rem;
-        margin-bottom: 10px;
-        letter-spacing: 1px;
-      }
-      p {
-        font-size: 1.25rem;
-        line-height: 1.6;
-        margin-bottom: 30px;
-      }
-      a.button {
-        display: inline-block;
-        padding: 15px 30px;
-        font-size: 1.1rem;
-        color: #4f46e5;
-        background-color: #fff;
-        text-decoration: none;
-        border-radius: 50px;
-        font-weight: bold;
-        transition: 0.3s;
-      }
-      a.button:hover {
-        background-color: #e5e5ff;
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-      }
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to   { opacity: 1; transform: translateY(0); }
-      }
-      .glow {
-        position: absolute;
-        width: 400px;
-        height: 400px;
-        background: radial-gradient(circle, rgba(255,255,255,0.25), transparent 70%);
-        border-radius: 50%;
-        top: -100px;
-        right: -100px;
-        filter: blur(50px);
-        animation: pulse 6s infinite alternate;
-      }
-      @keyframes pulse {
-        from { transform: scale(1); opacity: 0.7; }
-        to   { transform: scale(1.3); opacity: 0.3; }
-      }
-    </style>
-  </head>
+{% block head %}
+  <!-- Extra CSS for the landing page (gradient background, glow, glass container) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+{% endblock %}
 
-  <body>
+{% block content %}
+  <div class="landing-page">
     <div class="glow"></div>
+
     <div class="container">
-      <h1>Welcome to My Website</h1>
+      <h1>Welcome to BioQueryX</h1>
       <p>
-        This is the landing page of my Flask application.  
-        Click below to see results loaded from a SQL database.
+        This is the landing page of my project web application, using Flask in the backend
+        to display MySQL database results from my previous MySQL viral databse project.
       </p>
-      <!-- Link to the different pages -->
+    </div>
+
+    <div class="container">
+      <h2>Click below to view and query the database</h2>
+
       <a href="{{ url_for('results') }}" class="button">View Results</a>
       <a href="{{ url_for('testing') }}" class="button">View Testing</a>
     </div>
-  </body>
-</html>
+  </div>
+{% endblock %}

@@ -1,115 +1,103 @@
-<!doctype html>
-<html lang="en">
-  <head>
+<!-- This template shows all database tables using the shared base layout,
+     global styling (style.css), and navbar. Save this as: templates/results.html -->
 
-    <link rel="icon" type="image/svg+xml"
-          href="{{ url_for('static', filename='logo.jpg') }}">
+{% extends "base.html" %}
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% block title %}BioQueryX - Results{% endblock %}
 
-    <title>Results</title>
+{% block content %}
+  <div class="container page-container">
 
-    <style>
-      body {
-        margin: 0;
-        font-family: "Helvetica Neue", Arial, sans-serif;
-        background: #f3f4f6;
-        color: #111827;
-        padding: 40px;
-      }
+    <!-- Page header using the rounded header badge style -->
+    <h1 class="header-badge">Results</h1>
 
-      .container {
-        max-width: 900px;
-        margin: 0 auto;
-      }
-
-      a.back-link {
-        text-decoration: none;
-        color: #4f46e5;
-        font-weight: 600;
-        font-size: 1rem;
-      }
-
-      a.back-link:hover {
-        text-decoration: underline;
-      }
-
-      h1 {
-        margin-top: 20px;
-        margin-bottom: 25px;
-        font-size: 2.5rem;
-        color: #1f2937;
-      }
-
-      .results-box {
-        background: white;
-        border-radius: 14px;
-        padding: 30px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      }
-
-      .result-item {
-        padding: 18px 0;
-        border-bottom: 1px solid #e5e7eb;
-      }
-
-      .result-item:last-child {
-        border-bottom: none;
-      }
-
-      .label {
-        font-weight: 600;
-        color: #4b5563;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-
-      .value {
-        font-size: 1.25rem;
-        font-weight: 500;
-        color: #111827;
-      }
-    </style>
-
-  </head>
-
-<body>
-    <div class="container">
-
-      <a href="{{ url_for('home') }}" class="back-link">← Back to Home</a>
-
-      <h1>Results</h1>
-
-      <div class="results-box">
-
-        <h1>All Tables in Database</h1>
-
-        {% for table in tables %}
-            <h2>{{ table.name }}</h2>
-
-            <table>
-                <thead>
-                    <tr>
-                        {% for col in table.columns %}
-                        <th>{{ col }}</th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for row in table.rows %}
-                    <tr>
-                        {% for cell in row %}
-                        <td>{{ cell }}</td>
-                        {% endfor %}
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    <!-- Intro card for the page -->
+    <div class="results-box mb-40">
+      <h2>All Tables in Database</h2>
+      <p>
+        Below are all tables loaded from the database. Each table is displayed in its own box
+        with consistent styling so you can quickly browse the data.
+      </p>
     </div>
 
-{% endfor %}
+    <!-- Loop over all tables passed from Flask (tables = [{name, columns, rows}, ...]) -->
+    {% for table in tables %}
+      <div class="results-box">
 
-</body>
-</html>
+        <!-- Name of the current table -->
+        <h2>{{ table.name }}</h2>
+
+        <!-- Wrapper allows horizontal scrolling if the table is very wide -->
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                {% for col in table.columns %}
+                  <th>{{ col }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in table.rows %}
+              <tr>
+                  {% for cell in row %}
+                      <td class="sequence-cell">
+                        {# CASE 1 — Cell is a string, possibly a long sequence #}
+                        {% if cell is string %}
+                            
+                            {# Show short preview #}
+                            <span class="seq-short">
+                                {{ cell[:80] }}{% if cell|length > 80 %}...{% endif %}
+                            </span>
+
+                            {# Hidden full sequence #}
+                            {% if cell|length > 60 %}
+                                <span class="seq-full" style="display:none;">
+                                    {{ cell }}
+                                </span>
+                                <button class="seq-toggle">Show more</button>
+                            {% endif %}
+
+                        {% else %}
+
+                            {# CASE 2 — Cell is not a string (INTEGER, FLOAT, etc.) #}
+                            {{ cell }}
+
+                        {% endif %}
+
+                    </td>
+                  {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    {% endfor %}
+
+  </div>
+
+
+
+
+  <script>
+document.querySelectorAll(".seq-toggle").forEach(button => {
+    button.addEventListener("click", () => {
+        const cell = button.parentElement;
+        const shortText = cell.querySelector(".seq-short");
+        const fullText = cell.querySelector(".seq-full");
+
+        if (fullText.style.display === "none") {
+            fullText.style.display = "inline";
+            shortText.style.display = "none";
+            button.textContent = "Show less";
+        } else {
+            fullText.style.display = "none";
+            shortText.style.display = "inline";
+            button.textContent = "Show more";
+        }
+    });
+});
+</script>
+{% endblock %}

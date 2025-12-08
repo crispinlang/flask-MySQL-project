@@ -1,0 +1,35 @@
+<!-- This is the FAQ page showing common questions and answers.
+     Save this as: templates/faq.html -->
+
+{% extends "base.html" %}
+
+{% block title %}FAQ - Crispin's Website{% endblock %}
+
+{% block content %}
+  <div class="container page-container">
+    <h1 class="header-badge">FAQ</h1>
+
+    <div class="results-box">
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>What is this website for?</h3>
+      <p>
+        This site showcases results from a MySQL database using a Flask backend.
+        It’s mainly for experimentation and learning, and for visualizing data
+        from a previous project.
+      </p>
+
+      <h3>How are the results loaded?</h3>
+      <p>
+        The backend uses Python and Flask to connect to a MySQL database, run SQL queries,
+        and pass the results into Jinja templates which render the tables you see.
+      </p>
+
+      <h3>Can I see multiple tables?</h3>
+      <p>
+        Yes. The results and testing pages demonstrate loading one or several tables and
+        rendering them in separate styled boxes.
+      </p>
+    </div>
+  </div>
+{% endblock %}

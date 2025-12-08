@@ -1,0 +1,28 @@
+<!-- This is the About page that explains what the site/project is about.
+     It extends the base layout and uses the global styling only.
+     Save this as: templates/about.html -->
+
+{% extends "base.html" %}
+
+{% block title %}About - Crispin's Website{% endblock %}
+
+{% block content %}
+  <div class="container page-container">
+    <h1 class="header-badge">About</h1>
+
+    <div class="results-box">
+      <h2>About this project</h2>
+      <p>
+        This website is a Flask-based web application that connects to a MySQL database
+        and displays results from a previous project. It is mainly a playground for
+        experimenting with web development, backend integration, and data visualization.
+      </p>
+
+      <p>
+        The goal is to make the underlying data easier to explore through a clean,
+        modern interface, while also serving as a learning environment for full-stack
+        development (Python, Flask, SQL, HTML/CSS).
+      </p>
+    </div>
+  </div>
+{% endblock %}

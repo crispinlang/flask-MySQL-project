@@ -1,7 +1,3 @@
-<!-- This template renders the /search page.
-     It shows a search bar and then displays matching rows grouped by table.
-     It uses the shared base layout, navbar, and main styling. -->
-
 {% extends "base.html" %}
 
 {% block title %}ViralQueryX - Search{% endblock %}
@@ -9,10 +5,7 @@
 {% block content %}
   <div class="container page-container">
 
-    <!-- Page title using the rounded header badge style -->
     <h1 class="header-badge">Database query interface</h1>
-
-    <!-- ================= SEARCH BOX ================= -->
 
     <div class="results-box mb-40">
       <h2>Search the full database</h2>
@@ -116,21 +109,15 @@
         {% endfor %}
 
       <div class="results-box">
-              <!-- PURPOSE: Drop-in Plotly chart block for search.html.
-                Put this right after your "Search results for ..." summary box (or anywhere above the tables). -->
-
             {% if chart_json %}
               <div class="results-box mb-40">
                 <h2>Result statistics</h2>
                 <div id="hits-chart"></div>
               </div>
 
-              <!-- Load Plotly (CDN) -->
               <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
 
-              <!-- Render the chart -->
               <script>
-                  // PURPOSE: Load Plotly figure JSON safely from Flask/Jinja
                   const fig = JSON.parse({{ chart_json | tojson | safe }});
 
                   Plotly.newPlot(
@@ -143,10 +130,7 @@
             {% endif %}
       </div>
 
-
-        
       {% else %}
-
         <div class="results-box">
           <h2>No results</h2>
           <p>Nothing in the database matched "<strong>{{ q }}</strong>". Try a different keyword.</p>
@@ -158,7 +142,6 @@
   </div>
 
   <!-- ================= SHOW MORE / SHOW LESS SCRIPT ================= -->
-
   <script>
     document.addEventListener("click", function (e) {
       if (!e.target.classList.contains("seq-toggle")) return;

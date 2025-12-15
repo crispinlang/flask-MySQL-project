@@ -1,6 +1,3 @@
-<!-- This template shows all database tables using the shared base layout,
-     global styling (style.css), and navbar. Save this as: templates/results.html -->
-
 {% extends "base.html" %}
 
 {% block title %}ViralQueryX - Tables{% endblock %}
@@ -8,7 +5,6 @@
 {% block content %}
   <div class="container page-container">
 
-    <!-- Page header using the rounded header badge style -->
     <h1 class="header-badge">Tables</h1>
 
     <!-- Intro card for the page -->
@@ -20,22 +16,19 @@
       </p>
     </div>
 
-    <!-- Loop over all tables passed from Flask (tables = [{name, columns, rows}, ...]) -->
     {% for table in tables %}
       <div class="results-box">
 
-        <!-- Name of the current table -->
         <h2>{{ table.name }}</h2>
 
-        <!-- Wrapper allows horizontal scrolling if the table is very wide -->
         <div class="table-wrapper">
           <table>
               <colgroup>
                 <col style="width: 10%;">
                 <col style="width: 30%;">
                 <col style="width: 20%;">
-                <col style="width: 20%;"> <!-- sequence column -->
-                <col style="width: 20%;"> <!-- sequence column -->
+                <col style="width: 20%;">
+                <col style="width: 20%;">
               </colgroup>
             
 <thead>
@@ -100,7 +93,6 @@
     {% endfor %}
 
   </div>
-
 
 
 

@@ -1,13 +1,8 @@
-<!-- This is the landing/“Home” page that uses the special gradient + glow styling.
-     It extends base.html and adds landing.css only for this page.
-     Save this as: templates/home.html -->
-
 {% extends "base.html" %}
 
 {% block title %}Home - ViralQueryX{% endblock %}
 
 {% block head %}
-  <!-- Extra CSS for the landing page (gradient background, glow, glass container) -->
   <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
 {% endblock %}
 

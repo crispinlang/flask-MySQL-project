@@ -73,8 +73,6 @@ viralqueryx/
     └── sample_data.sql    # Optional sample data
 ```
 
-The API is intended for integration with analysis pipelines, scripts, or external applications.
-
 ---
 
 ## RESTful API Usage
@@ -105,6 +103,22 @@ This API can be consumed by:
 - Python scripts
 - Data analysis pipelines
 - External applications
+
+---
+
+## Website visuals
+
+### Landing page
+![Landing page](img/landing.png)
+- Landing page allows for direct navigation to search or table page.
+
+### Search interface
+![Search page](img/search.png)
+- Search query with two premade searches available via buttons
+
+### Tables page
+![Search page](img/tables.png)
+- Showcasing the clickable hyperlinks to be able to navigate directly to the NCBI entry
 
 ---
 
